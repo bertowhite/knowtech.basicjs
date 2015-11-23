@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+	<script>
+		"use strict";
+
+		a = "hola";
+		
+		(function(a) {
+			a = "STFU";
+		})(a);
+
+		a = null;
+
+		(function(a) {
+			a
+		})(a);
+
+		//$ = null;
+
+		//
+	</script>
+</head>
+
+<body>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<html>
+    <head>
+    	<script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+    	<script>
+    	document.addEventListener("DOMContentLoaded", function() {
+    		var blogPostTemplate = document.getElementById("blogPostTemplate");
+    		var blogPostSection = document.getElementById("blogPosts");
+
+    		blogPostSection.removeChild(blogPostTemplate);
+
+    		$.getJSON("/posts.json").done(function(posts) {
+    			for(var i = 0; i < posts.length; i++) {
+    				var clonedPostTemplate = blogPostTemplate.cloneNode(true);
+
+    				var titleElement = clonedPostTemplate.querySelector("h2");
+    				var authorElement = clonedPostTemplate.querySelector(".blog-post-author");
+    				var bodyElement = clonedPostTemplate.querySelector(".blog-post-body");
+
+    				debugger;
+    				titleElement.textContent = posts[i].title;
+    				authorElement.textContent = posts[i].author;
+    				bodyElement.textContent = posts[i].body;
+
+    				blogPostSection.appendChild(clonedPostTemplate);
+    			}
+    		});
+    	});
+    	</script>
+    </head>
+    <body>
+        <header><h1>Blog</h1></header>
+        <section id="blogPosts">
+            <article id="blogPostTemplate">
+            	<h2></h2>
+            	<aside>
+            		<span class="blog-post-author"></span>
+            	</aside>
+            	<section class="blog-post-body"></section>
+            </article>
+        </section>
+        <footer>&copy; My blog</footer>
+    </body>
+</html>

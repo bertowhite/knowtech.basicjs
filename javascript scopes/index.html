@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script>
+	var globalSettings = {
+		appTitle: "My app"
+	};
+	// Syntactic sugar
+	var x = 11;
+	window.x = 11;
+
+	function doStuff() {
+		// New scope
+		var a = "hola";
+	}
+
+	console.log(a);
+
+	/*if(true) {
+		var a = "hello world";
+	}
+
+	console.log(a);
+
+	for(var i = 0; i < 10; i++) {
+
+	}
+
+	console.log(i);
+
+	for(;i < 10; i++) {
+
+	}
+
+	var a = "hello world 2";
+
+	console.log(a);*/
+
+	// How to avoid declaring global variables?
+	// IIFE => Immediately-invoked function expressions
+	// Self-invoked function
+	(function () {
+		var x = 11;
+	})();
+
+
+	</script>
+</head>
+
+<body>
+</body>
+</html>
