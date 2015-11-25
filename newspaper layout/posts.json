@@ -3,12 +3,14 @@
 		"id": 1, 
 		"title": "Today we start to develop a wonderful blog",
 		"body": "This is a good start to learn JavaScript, HTML5 and CSS. I'm going to implement my home-made blog!",
-		"author": "Matías"
+		"author": "Matías",
+		"stars": 3
 	},
 	{ 
 		"id": 2, 
-		"title": "Today we start to develop a wonderful blog",
+		"title": "Today we start to develop the worst blog ever",
 		"body": "This is a good start to learn JavaScript, HTML5 and CSS. I'm going to implement my home-made blog!",
-		"author": "Matías"
+		"author": "Matías",
+		"stars": 4
 	}
 ]
