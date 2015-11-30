@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link href="styles.css" rel="stylesheet" type="text/css">
+    	<script src="http://code.jquery.com/jquery-2.1.4.js"></script>
+        <script src="/bower_components/knockout/dist/knockout.js"></script>
+        <script>
+            var model = {
+                posts: ko.observableArray(),
+
+                drop: function() {
+                    debugger;
+                    model.posts.splice(model.posts.indexOf(this), 1);
+                }
+            };
+
+            document.addEventListener("DOMContentLoaded", function() {
+                $.getJSON("/posts.json").done(function(posts) {
+
+                    posts.forEach(function(post) {
+                        model.posts.push(post);
+                    });
+                });
+
+                ko.applyBindings(model, document.getElementById("app"));
+            });
+
+
+        </script>
+    </head>
+    <body>
+        <div id="app">
+            <header><h1>Blog</h1></header>
+            <section>
+                <span>This blog has </span><span data-bind="text: posts().length"></span><span> posts</span>
+            </section>
+            <section id="blogPosts" data-bind="foreach: posts">
+                <article id="blogPostTemplate">
+                    <button data-bind="click: $root.drop">Drop</button>
+                	<h2 data-bind="text: title"></h2>
+                	<aside>
+                		<span class="blog-post-author" data-bind="text: author"></span>
+                        <div class="blog-post-rating" data-bind="foreach: new Array(stars)">
+                            <img src="/images/star-icon.png">
+                        </div>
+                	</aside>
+                	<section class="blog-post-body" data-bind="text: body"></section>
+
+                    <section class="blog-post-comments" data-bind="foreach: comments">
+                        <div data-bind="text: text"></div>
+                    </section>
+                </article>
+            </section>
+            <footer>&copy; My blog</footer>
+        </div>
+    </body>
+</html>
