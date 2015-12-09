@@ -21,3 +21,11 @@ body {
 	width: 20px;
 	height: 20px;
 }
+
+textarea.blog-post-body.read-only, section.blog-post-body.editable {
+	display: none;
+}
+
+textarea.blog-post-body.editable, section.blog-post-body.read-only {
+	display: block;
+}
