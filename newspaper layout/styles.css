@@ -22,7 +22,7 @@ body {
 	height: 20px;
 }
 
-textarea.blog-post-body.read-only, section.blog-post-body.editable {
+textarea.blog-post-body, section.blog-post-body {
 	display: none;
 }
 

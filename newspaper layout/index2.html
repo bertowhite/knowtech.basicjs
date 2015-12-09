@@ -11,6 +11,7 @@
                 currentOrder: "desc",
                 posts: ko.observableArray(),
                 searchText: ko.observable(),
+                backgroundColor: ko.observable(),
                 postsBackup: null,
 
                 startEditingPost: function(post) {
@@ -72,10 +73,18 @@
 
                     posts.forEach(function(post) {
                         post.editable = ko.observable(false);
+                        post.body = ko.observable(post.body);
                         model.posts.push(post);
                     });
                 }
             };
+
+            model.backgroundColor.subscribe(function() {
+                document.body.style.background = "none";
+                document.body.style.backgroundColor = model.backgroundColor();
+
+                localStorage.setItem("backgroundColor", model.backgroundColor());
+            });
 
             model.searchText.subscribe(function() {
                 var result = model.postsBackup.filter(function(post) {
@@ -95,10 +104,12 @@
                     model.loadPosts();
                 }
 
+                if(localStorage.getItem("backgroundColor") != null) {
+                    model.backgroundColor(localStorage.getItem("backgroundColor"));
+                }
+
                 ko.applyBindings(model, document.getElementById("app"));
             });
-
-
         </script>
     </head>
     <body>
@@ -108,6 +119,7 @@
                 <span>This blog has </span><span data-bind="text: posts().length"></span><span> posts</span>
                 <button data-bind="click: reorder, text: reorderButtonText"></button>
                 <input type="text" placeholder="Search here" data-bind="value: searchText, valueUpdate: 'keyup'">
+                <input type="text" placeholder="Background color" data-bind="value: backgroundColor, valueUpdate: 'keyup'">
             </section>
             <section id="blogPosts" data-bind="foreach: posts">
                 <article id="blogPostTemplate">
@@ -124,7 +136,7 @@
                 	</aside>
                 	<section class="blog-post-body" data-bind="css: { 'read-only': !editable() }, text: body, click: function() { $root.startEditingPost(this) }"></section>
 
-                    <textarea class="blog-post-body" data-bind="value: body, css: { editable: editable() }, click: function() { $root.stopEditingPost(this) }"></texarea>
+                    <textarea class="blog-post-body" data-bind="value: body, css: { editable: editable() }, event: { blur: function() { $root.stopEditingPost(this) } }, valueUpdate: 'keyup'"></texarea>
 
                     <section class="blog-post-comments" data-bind="foreach: comments">
                         <div data-bind="text: text"></div>
