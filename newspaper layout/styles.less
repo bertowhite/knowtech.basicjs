@@ -1,0 +1,49 @@
+@import "styles/typography.less";
+@import (reference) "styles/mixins.less";
+@import (reference) "styles/defaultColors.less";
+
+html {
+	height: 100%;
+}
+
+body {
+	font-family: @fontFamily;
+	display: flex;
+	font-size: @large-font-size;
+	justify-content: center;
+	background: linear-gradient(135deg, #1a8425 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */;
+
+	#app {
+		max-width: 70vw;
+		background-color: #eee;
+		padding: 1rem 3rem;
+		border-radius: 4px;
+		box-shadow: 0 0 10px #444;
+		.border-radius(10px);
+
+		#blogPosts {
+			padding: 5px;
+
+			.blog-post {
+				&.error {
+					background-color: saturate(@error-color, 2%);
+				}
+
+				.blog-post-rating {
+					img {
+						width: 20px;
+						height: 20px;
+					}
+				}
+
+				.blog-post-body {
+					display: none;
+
+					&.editable, &.read-only {
+						display: block;
+					}
+				}
+			}
+		}
+	}
+}

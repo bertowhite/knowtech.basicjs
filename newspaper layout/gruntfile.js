@@ -8,8 +8,16 @@ module.exports = function(grunt) {
 		        keepalive: true
 		      }
     		}
+	  	},
+	  	less: {
+		  development: {
+		    files: {
+		      "./styles.css": "./styles.less"
+		    }
+		  }
 	  	}
 	});
 
 	grunt.loadNpmTasks("grunt-contrib-connect");
+	grunt.loadNpmTasks("grunt-contrib-less");
 }

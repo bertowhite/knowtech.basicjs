@@ -122,7 +122,7 @@
                 <input type="text" placeholder="Background color" data-bind="value: backgroundColor, valueUpdate: 'keyup'">
             </section>
             <section id="blogPosts" data-bind="foreach: posts">
-                <article id="blogPostTemplate">
+                <article id="blogPostTemplate" class="blog-post">
                     <button data-bind="click: $root.drop">Drop</button>
                 	<h2 data-bind="text: title"></h2>
                 	<aside>
