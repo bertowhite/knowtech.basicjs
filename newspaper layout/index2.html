@@ -49,19 +49,16 @@
 
                 drop: function() {
                     model.posts.splice(model.posts.indexOf(this), 1);
-                }
-            };
+                },
 
-            model.searchText.subscribe(function() {
-                var result = model.postsBackup.filter(function(post) {
-                    return post.title.toLowerCase().indexOf(model.searchText().toLowerCase()) > -1;
-                });
+                loadPosts: function(posts) {
+                    if(typeof posts == "undefined") {
+                        console.log("hey");
+                        posts = JSON.parse(localStorage.getItem("latestposts"));
+                    } else {
+                        localStorage.setItem("latestposts", JSON.stringify(posts));
+                    }
 
-                model.posts(result);
-            });
-
-            document.addEventListener("DOMContentLoaded", function() {
-                $.getJSON("/posts.json").done(function(posts) {
                     model.postsBackup = posts;
 
                     posts.sort(function(previousPost, nextPost){
@@ -77,7 +74,26 @@
                         post.editable = ko.observable(false);
                         model.posts.push(post);
                     });
+                }
+            };
+
+            model.searchText.subscribe(function() {
+                var result = model.postsBackup.filter(function(post) {
+                    return post.title.toLowerCase().indexOf(model.searchText().toLowerCase()) > -1;
                 });
+
+                model.posts(result);
+            });
+
+            document.addEventListener("DOMContentLoaded", function() {
+                if(localStorage.getItem("latestposts") == null) {
+                    console.log("nooooooooooooooo");
+                    $.getJSON("/posts.json").done(function(posts) {
+                        model.loadPosts(posts);
+                    });
+                } else {
+                    model.loadPosts();
+                }
 
                 ko.applyBindings(model, document.getElementById("app"));
             });
