@@ -95,9 +95,12 @@
             });
 
             document.addEventListener("DOMContentLoaded", function() {
+                // Quitar esta linea si queremos tener cache...
+                localStorage.clear();
+
                 if(localStorage.getItem("latestposts") == null) {
                     console.log("nooooooooooooooo");
-                    $.getJSON("/posts.json").done(function(posts) {
+                    $.getJSON("/blog/posts").done(function(posts) {
                         model.loadPosts(posts);
                     });
                 } else {
